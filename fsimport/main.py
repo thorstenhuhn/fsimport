@@ -70,7 +70,8 @@ def cli(config, dry_run, extra_vars, verbose, src):
 
     finally:    
         shutil.rmtree(tmp_directory)
-        os.remove(src.name)
+        # TODO remove file if and only if downloaded
+        #os.remove(src.name)
 
 
 def main():
