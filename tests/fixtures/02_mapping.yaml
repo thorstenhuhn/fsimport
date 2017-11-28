@@ -1,0 +1,13 @@
+---
+
+mappings:
+
+  - directory: dir1
+    include: '*'
+    target: '{{ app_home }}/dir1'
+
+  - directory: dir2
+    include: '*'
+    exclude: '*.txt'
+    target: '{{ app_home }}/dir2'
+

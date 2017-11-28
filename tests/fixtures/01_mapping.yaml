@@ -1,0 +1,13 @@
+---
+
+mappings:
+
+  - directory: dir1
+    include: '*'
+    target: dir1
+
+  - directory: dir2
+    include: '*'
+    exclude: '*.txt'
+    target: dir2
+
