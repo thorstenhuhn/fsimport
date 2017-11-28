@@ -125,7 +125,7 @@ def process_rules(config, basedir, files, **kwargs):
 
     # show details if we are in verbose mode
     if verbose:
-        for filename in file_used_state.keys():
+        for filename in sorted(file_used_state.keys()):
             if not file_used_state[filename]:
                 logger.warn(' + {}'.format(filename))
 
