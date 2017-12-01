@@ -1,6 +1,7 @@
 from . import __version__
 
 import click
+import datetime
 import logging
 import os
 import shutil
@@ -72,6 +73,12 @@ def cli(config, dry_run, extra_vars, verbose, src):
         shutil.rmtree(tmp_directory)
         # TODO remove file if and only if downloaded
         #os.remove(src.name)
+
+        # write summary unless dry_run mode
+        if not dry_run:
+            with open(config.get('version_info', 'fsimport.info'), 'w') as info:
+                info.write('Package: {}\n'.format(src.name))
+                info.write('Installation date: {}\n'.format(datetime.datetime.utcnow().strftime('%d.%m.%y %H:%M:%S')))
 
 
 def main():
