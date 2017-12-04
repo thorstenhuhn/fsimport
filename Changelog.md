@@ -1,3 +1,10 @@
+# Release 0.3.0
+
+## Improvements
+
+- Allow writing multiple info files
+
+
 # Release 0.2.0
 
 ## Improvements
@@ -12,3 +19,4 @@
 # Release 0.1.0
 
 - Initial version
+
