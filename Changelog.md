@@ -1,3 +1,14 @@
+# Release 0.4.0
+
+## Improvements
+
+- Allow multiple environment names (aliases)
+
+## Fixes
+
+- Make sure all info files get the same timestamp
+
+
 # Release 0.3.0
 
 ## Improvements
