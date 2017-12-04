@@ -76,9 +76,14 @@ def cli(config, dry_run, extra_vars, verbose, src):
 
         # write summary unless dry_run mode
         if not dry_run:
-            with open(config.get('version_info', 'fsimport.info'), 'w') as info:
-                info.write('Package: {}\n'.format(src.name))
-                info.write('Installation date: {}\n'.format(datetime.datetime.utcnow().strftime('%d.%m.%y %H:%M:%S')))
+            version_info = config.get('version_info', 'fsimport.info')
+            if isinstance(version_info, (str, unicode)):
+                version_info = [ version_info ]
+            for target in version_info:
+                logger.info('Writing info file {}'.format(target))
+                with open(target, 'w') as info:
+                    info.write('Package: {}\n'.format(src.name))
+                    info.write('Installation date: {}\n'.format(datetime.datetime.now().strftime('%d.%m.%y %H:%M:%S')))
 
 
 def main():
