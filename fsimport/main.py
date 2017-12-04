@@ -81,9 +81,10 @@ def cli(config, dry_run, extra_vars, verbose, src):
                 version_info = [ version_info ]
             for target in version_info:
                 logger.info('Writing info file {}'.format(target))
+                timestamp = datetime.datetime.now().strftime('%d.%m.%y %H:%M:%S')
                 with open(target, 'w') as info:
                     info.write('Package: {}\n'.format(src.name))
-                    info.write('Installation date: {}\n'.format(datetime.datetime.now().strftime('%d.%m.%y %H:%M:%S')))
+                    info.write('Installation date: {}\n'.format(timestamp))
 
 
 def main():
