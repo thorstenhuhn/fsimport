@@ -3,13 +3,15 @@ try:
 except ImportError:
     from distutils.core import setup
 
+from fsimport import __version__    
+
 config = {
     'description': 'fsimport - import files from archives using filesets',
     'author': 'Thorsten Huhn',
     'url': 'https://github.com/thorstenhuhn/fsimport.git',
     'download_url': 'https://github.com/thorstenhuhn/fsimport/archive/master.zip',
     'author_email': 'thorstenhuhn@users.noreply.github.com',
-    'version': '0.1.0',
+    'version': __version__,
     'install_requires': [
         'click',
         'colorlog',
