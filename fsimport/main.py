@@ -53,6 +53,10 @@ def cli(config, dry_run, extra_vars, verbose, src):
     environment_name = config.get('environment_name', None)
     if environment_name is None:
         logger.fatal('Incomplete configuration: environment_name not set')
+    else:
+        if isinstance(environment_name, (str, unicode)):
+            environment_name = [ environment_name ]
+    logger.info('Environment name(s): {}'.format(environment_name))        
 
     # add options to config
     config['dry_run'] = dry_run
