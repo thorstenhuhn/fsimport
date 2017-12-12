@@ -20,7 +20,7 @@ def load_config(config_file=None, extra_vars=[]):
 
     # add default rule if mappings are missing
     if config.get('mappings', None) is None:
-        config['mappings'] = { 'directory': '.', 'include': '**' }
+        config['mappings'] = [ { 'directory': '.', 'include': '**' } ]
 
     logger.debug(config)
     return config

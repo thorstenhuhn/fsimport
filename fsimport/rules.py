@@ -40,11 +40,11 @@ def process_rules(config, basedir, files, **kwargs):
         # search files matching rule pattern
         rule_used_state.append(False)
         fileset = FileSet(directory=os.path.join(basedir, rule['directory']), include=rule.get('include', '*'), exclude=rule.get('exclude', None))
-        target = rule.get('target', None)
 
         # walk through all matches
         for filename in fileset:
             logger.debug('source: {}'.format(filename))
+            target = rule.get('target', None)
 
             # as we found a match, mark file and rule as used
             file_used_state[filename] = True
