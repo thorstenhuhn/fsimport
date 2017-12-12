@@ -1,3 +1,10 @@
+# Release 0.4.1
+
+## Fixes
+
+- Fixed default rule to use in case of empty configuration
+
+
 # Release 0.4.0
 
 ## Improvements
@@ -24,6 +31,7 @@
 - write info file to current working directory
 
 ## Fixes
+
 - keep package file after processing
  
 
