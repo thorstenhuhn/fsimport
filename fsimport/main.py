@@ -50,13 +50,6 @@ def cli(config, dry_run, extra_vars, verbose, src):
     # load configuration
     logger.info('Loading configuration')
     config = load_config(config, extra_vars)
-    environment_name = config.get('environment_name', None)
-    if environment_name is None:
-        logger.fatal('Incomplete configuration: environment_name not set')
-    else:
-        if isinstance(environment_name, (str, unicode)):
-            environment_name = [ environment_name ]
-    logger.info('Environment name(s): {}'.format(environment_name))        
 
     # add options to config
     config['dry_run'] = dry_run
@@ -64,8 +57,7 @@ def cli(config, dry_run, extra_vars, verbose, src):
 
     try:
         # unarchiving package
-        logger.info('Unarchiving {}'.format(src.name))
-        package_files = unarchive(src.name, tmp_directory, environment_name)
+        package_files = unarchive(config, tmp_directory, src.name)
 
         # process rules
         process_rules(config, tmp_directory, package_files)
