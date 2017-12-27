@@ -6,7 +6,6 @@ import os
 from formic import FileSet
 from shutil import copyfile
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -37,13 +36,17 @@ def process_rules(config, basedir, files, **kwargs):
         logger.info('Processing rule {}/{}'.format(idx+1, len(rules)))
         logger.debug(rule)
 
+        # the base directory we are going to search as specified in the rule
+        reference_dir = os.path.abspath(os.path.join(basedir, rule['directory']))
+        logger.debug('# reference dir: {}'.format(reference_dir))
+
         # search files matching rule pattern
         rule_used_state.append(False)
-        fileset = FileSet(directory=os.path.join(basedir, rule['directory']), include=rule.get('include', '*'), exclude=rule.get('exclude', None))
+        fileset = FileSet(directory=reference_dir, include=rule.get('include', '*'), exclude=rule.get('exclude', None))
 
         # walk through all matches
         for filename in fileset:
-            logger.debug('source: {}'.format(filename))
+            logger.debug('# source: {}'.format(filename))
             target = rule.get('target', None)
 
             # as we found a match, mark file and rule as used
@@ -51,8 +54,8 @@ def process_rules(config, basedir, files, **kwargs):
             rule_used_state[idx] = True
 
             # filename is absolute, sub_path contains only the part relative to basedir
-            sub_path = filename[len(basedir)+1:]
-            #logger.debug('subpath: {}'.format(sub_path))
+            sub_path = filename[len(reference_dir)+1:]
+            logger.debug('subpath: {}'.format(sub_path))
 
             # skip further processing if rule sets ignore=True
             ignore = rule.get('ignore', False)
@@ -67,8 +70,8 @@ def process_rules(config, basedir, files, **kwargs):
                 tpl = env.get_template(sub_path)
                 rendered = tpl.render(config)
                 filename_rendered = filename + '.rendered'
-                with open(filename_rendered, 'wb') as f:
-                    f.write(rendered)
+                with open(filename_rendered, 'w') as f:
+                    f.write(rendered.encode('utf-8'))
                 filename = filename_rendered
 
             # identify target path including filename
@@ -82,7 +85,12 @@ def process_rules(config, basedir, files, **kwargs):
 
                 # make sure target is a file
                 if t.endswith('/') or os.path.isdir(t):
-                    t = os.path.join(t, os.path.basename(sub_path))
+                    if rule.get('flatten', False):
+                        t = os.path.join(t, os.path.basename(sub_path))
+                    else:    
+                        t = os.path.join(t, sub_path)
+
+                logger.debug('# target: {}'.format(t))    
 
                 # case 1: target already exists
                 if os.path.exists(t):
