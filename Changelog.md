@@ -1,3 +1,11 @@
+# Release 0.4.2
+
+## Improvements
+
+- Added support for 'flatten' attribute
+- Improved environment handling (matching vs ignored)
+
+
 # Release 0.4.1
 
 ## Fixes
