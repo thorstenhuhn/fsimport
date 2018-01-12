@@ -1,3 +1,11 @@
+# Release 0.4.3
+
+## Improvements
+
+- Perform strict rendering to identify variable typos
+- Print stacktrace only in verbose mode
+
+
 # Release 0.4.2
 
 ## Improvements
