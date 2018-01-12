@@ -6,6 +6,7 @@ import logging
 import os
 import shutil
 import tempfile
+import traceback
 
 from fsimport.archive import unarchive
 from fsimport.config import load_config
@@ -63,7 +64,9 @@ def cli(config, dry_run, extra_vars, verbose, src):
         process_rules(config, tmp_directory, package_files)
 
     except Exception as e:
-        logger.fatal(e)
+        if verbose:
+            logger.info(traceback.format_exc())
+        logger.fatal(str(e))
 
     finally:    
         shutil.rmtree(tmp_directory)
