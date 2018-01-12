@@ -29,7 +29,7 @@ def process_rules(config, basedir, files, **kwargs):
 
     # setup jinja2 environment
     loader = jinja2.loaders.FileSystemLoader(basedir)
-    env = jinja2.Environment(loader=loader)
+    env = jinja2.Environment(loader=loader, undefined=jinja2.StrictUndefined)
 
     # wall through all rules
     for idx, rule in enumerate(rules):
@@ -67,7 +67,7 @@ def process_rules(config, basedir, files, **kwargs):
             # render source file if template
             is_template = rule.get('template', False)
             if is_template:
-                tpl = env.get_template(sub_path)
+                tpl = env.get_template(filename[len(basedir)+1:])
                 rendered = tpl.render(config)
                 filename_rendered = filename + '.rendered'
                 with open(filename_rendered, 'w') as f:
